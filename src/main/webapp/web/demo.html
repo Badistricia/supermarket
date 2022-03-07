@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<link rel="stylesheet" href="/hotel210607/layui/css/layui.css" media="all">
+<title>注册页面</title>
+</head>
+
+
+<body>
+
+<fieldset class ="layui-elem-field">
+	<lengend>	zhuce	</lengend>
+	<div class="layui=field-box">
+	<form class="layui-form" >
+  <div class="layui-form-item">
+    <label class="layui-form-label">账号</label>
+    <div class="layui-input-block">
+      <input type="text" name="id" required  lay-verify="required" placeholder="请输入账号" autocomplete="off" class="layui-input">
+    </div>
+  </div>
+  <div class="layui-form-item">
+    <label class="layui-form-label">昵称</label>
+    <div class="layui-input-block">
+      <input type="text" name="name" required  lay-verify="required" placeholder="请输入昵称" autocomplete="off" class="layui-input">
+    </div>
+  </div>
+  <div class="layui-form-item">
+    <label class="layui-form-label">密码框</label>
+    <div class="layui-input-inline">
+      <input type="password" name="pass" required lay-verify="required" placeholder="请输入密码" autocomplete="off" class="layui-input">
+    </div>
+    <div class="layui-form-mid layui-word-aux">辅助文字</div>
+  	
+  <div class="layui-form-item">
+    <div class="layui-input-block">
+      <input type = "button" value = "确定" lay-submit lay-filter="reg" class="layui-btn" >
+      <input type="reset" class="layui-btn layui-btn-primary" value ="重置"></button>
+         <input type="button" class="layui-btn" onclick ="goLogin()"value ="登录"></button>
+    </div>
+  </div>
+</form>
+	
+	</div>
+</fieldset>
+</body>
+ <script src="/hotel210607/layui/layui.js"></script>
+ <script>
+
+function goLogin(){
+	location.href="/hotel210607/web/login.html";
+}
+
+
+
+</script>
+<script>
+  var form = layui.form;
+  var $ = layui.jquery;
+  var layer = layui.layer;
+  //监听提交
+  form.on('submit(reg)', function(data){
+    var field = data.field;
+    console.log(field);
+    $.ajax({
+		url:"/hotel210607/admin/insert",
+		type:"post",
+		data:field,
+		dataType:"json",
+//		请求成功返回之后执行的方法
+		success:function(data){
+			console.log(data)
+			if(data.code==1){
+				layer.msg("success")
+				
+			}else if(data.code==9){
+				
+				layer.msg("failed")}
+				
+		}
+	});
+  });
+</script>
+</html>

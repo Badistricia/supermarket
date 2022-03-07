@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<link rel="stylesheet" href="/supermarket/layui/css/layui.css" media="all">
+<title>Insert title here</title>
+</head>
+<body>
+更改货物信息
+<fieldset class ="layui-elem-field">
+	
+	<div class="layui=field-box">
+	<form class="layui-form" >
+  <div class="layui-form-item">
+    <label class="layui-form-label">货品编码</label>
+    <div class="layui-input-inline">
+      <input type="text" name="id" required  lay-verify="required" placeholder="请输入账号" autocomplete="off" class="layui-input">
+    </div>
+  </div>
+  <div class="layui-form-item">
+    <label class="layui-form-label">货品名</label>
+    <div class="layui-input-inline">
+      <input type="text" name="name" required  lay-verify="required" placeholder="请输入昵称" autocomplete="off" class="layui-input">
+    </div>
+  </div>
+  <div class="layui-form-item">
+    <label class="layui-form-label">出货日期</label>
+    <div class="layui-input-inline">
+      <input type="text" name="outdate" required lay-verify="required" placeholder="请输入密码" autocomplete="off" class="layui-input">
+    </div>
+    <div class="layui-form-item">
+    <label class="layui-form-label">入货日期</label>
+    <div class="layui-input-inline">
+      <input type="text" name="indate" required lay-verify="required" placeholder="请输入密码" autocomplete="off" class="layui-input">
+    </div>
+    <div class="layui-form-mid layui-word-aux">辅助文字</div>
+  	
+  <div class="layui-form-item">
+    <div class="layui-input-block">
+      <input type = "button" value = "确定" lay-submit lay-filter="upd" class="layui-btn" >
+      <input type="reset" class="layui-btn layui-btn-primary" >
+	</div>
+  </div>
+</form>
+</div>
+</fieldset>
+
+
+
+<script src="/supermarket/layui/layui.js"></script>
+<script type ="text/javascript" >
+
+var url = location.href;
+var id = url.substr(url.indexOf('=')+1)//接受传输过来的id
+var $ = layui.jquery;
+ 	$.ajax({
+ 	url:"/supermarket/date/selectModel",
+ 	data:{id:id},
+ 	type:"post",
+ 	dataType:"json",
+ 	success:function(data){
+ 		var obj = data.code;
+ 		$("input[name='id']").val(obj.id);
+		$("input[name='name']").val(obj.name);
+		$("input[name='outdate']").val(obj.outdate);
+		$("input[name='indate']").val(obj.indate);
+ 	}
+ 		
+ 	})
+  function closeThis()  //自动关闭
+ {
+	 var index = parent.layer.getFrameIndex(window.name); //先得到当前iframe层的索引
+	 parent.layer.close(index); //再执行关闭 
+ }
+ 	var form = layui.form;
+ 	var layer = layui.layer;
+ 	form.on('submit(upd)', function(data){
+ 	     var field = data.field;
+ 	     console.log(field);
+ 	     $.ajax({
+ 	 		url:"/supermarket/date/update",
+ 	 		type:"post",
+ 	 		data:field,
+ 	 		dataType:"json",
+// 	 		请求成功返回之后执行的方法
+ 	 		success:function(data){
+ 	 			console.log(data)
+ 	 			if(data.code==1){
+ 	 				layer.msg("success",closeThis)
+ 	 				
+ 	 			}else {
+ 	 				
+ 	 				layer.msg("failed")}
+ 	 				
+ 	 		}
+ 	 	});
+ 	});
+ </script>
+
+</body>
+
+ 
+
+</body>
+</html>

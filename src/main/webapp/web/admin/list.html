@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html>
+<head>
+<link rel="stylesheet" href="/supermarket/layui/css/layui.css" media="all">
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+
+员工信息维护
+
+<table id="demo" lay-filter="test"></table>
+
+<script type="text/html" id="toolbarDemo">
+
+    <div class="layui-input-inline">
+      <input type="text" name="id" required  lay-verify="required" placeholder="请输入账号" autocomplete="off" class="layui-input">
+    </div>
+	<div class="layui-input-inline">
+      <input type="text" name="name" required  lay-verify="required" placeholder="请输入昵称" autocomplete="off" class="layui-input">
+    </div>
+ 	<input type="button" class="layui-btn layui-btn-normal layui-btn-sm"value ="查询"lay-event="sel">
+	<input type="button" class="layui-btn layui-btn-normal layui-btn-sm"value ="添加"lay-event="add">
+
+</script>
+
+<script type="text/html" id="barDemo">
+  <input type="button" class="layui-btn layui-btn-xs layui-btn-radius layui-btn-normal" value ="更改"lay-event="upd">
+
+ 	<input type="button" class="layui-btn layui-btn-xs layui-btn-radius layui-btn-danger" value ="删除"lay-event="del">
+</script>
+
+<script src="/supermarket/layui/layui.js"></script>
+
+<script type="text/javascript">
+
+
+var table =layui.table;
+//渲染，请求数据也要路径，也就是要求url的原因
+table.render({
+	elem:"#demo",
+	url:"/supermarket/admin/selectPage",
+	page:true,
+	height: 600,
+	toolbar:'#toolbarDemo',
+	cols: [[
+		{type:'numbers',title:"序号",fixed:"left"},
+		{field:'id', width:300, title: '编码', sort: true},//值放的是实体类的属性，就是entity里面的属性名
+		{field:'name', width:300, title: '用户名'},
+		{field:'pass', width:300, title: '密码'},
+		{title:"操作",fixed: 'right',toolbar: '#barDemo'}
+		]]		
+});
+	var layer = layui.layer;
+	var $ = layui.jquery;
+table.on("toolbar(test)",function(obj){
+	  var event = obj.event; //获得 lay-event 对应的值（也可以是表头的 event 参数对应的值）
+	  layer.msg(event)
+	  switch(event)
+	  {
+	  case 'sel':
+		  
+		  var id =$("input[name='id']").val();
+		  var name =$("input[name='name']").val();
+		  table.reload('demo',{			  
+			  where: {id:id,name:name},//设定异步数据接口的额外参数，任意设,左边是
+			  page: {curr:1}//查询的时候变成第一页
+		  });
+		  break;
+		  
+	  case 'add'://弹出窗口，用来添加数据
+		  {
+		  layer.open({
+			  type:2,
+			  content:"/supermarket/web/admin/add.html"	,				//弹出层显示内容url
+			 area:['600px','450px'],		
+			 maxmin:true,												//控制最大最小化
+			end:refresh
+			
+		  });
+		  }
+		  
+	  }
+});
+
+function closeThis()  //自动关闭
+{
+	 var index = parent.layer.getFrameIndex(window.name); //先得到当前iframe层的索引
+	 parent.layer.close(index); //再执行关闭 
+}
+
+function refresh()
+{
+	$('input[value ="查询"]').click();
+	}
+table.on("tool(test)",function(obj){
+	var id = obj.data.id; //选中的那行对应的id的值
+	var event = obj.event; //获得 lay-event 对应的值（也可以是表头的 event 参数对应的值）
+	  layer.msg(event);
+		switch (event)
+		{
+		case 'del':
+			
+			layer.confirm('真的删除行么',{icon:3,title:'提示'},function(index){		
+			 $.ajax({
+			 		url:"/supermarket/admin/delete",
+			 		type:"post",
+			 		data:{id:id},
+			 		dataType:"json",
+//			 		请求成功返回之后执行的方法
+			 		success:function(data){
+			 			console.log(data)
+			 			if(data.code==1){
+			 				layer.msg("success",refresh)
+			 				
+			 			}else if(data.code==9){
+			 				
+			 				layer.msg("failed")}
+			 				
+			 		}
+			 	});
+			
+			});
+			break;
+		case 'upd':
+			layer.open({
+				  type:2,
+				  content:"/supermarket/web/admin/upd.html?id="+id,				//传递id
+				 area:['600px','450px'],		
+				 maxmin:true,												//控制最大最小化
+				end:refresh
+				
+			  });
+			break;
+			
+		}
+
+})
+
+
+
+</script>
+</body>
+</html>

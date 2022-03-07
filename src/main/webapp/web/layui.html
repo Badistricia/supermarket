@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>carousel模块快速使用</title>
+  
+<link rel="stylesheet" href="/supermarket/layui/css/layui.css" media="all">
+<style type = "text/css">
+	.pst{
+	position:absolute;
+	left:10px;
+	top:10px;
+	}
+</style>
+
+</head> 
+<body>
+
+<div class="layui-carousel pst" id="test1">
+  <div carousel-item>
+    <div style = "text-align:center"><img alt="test" src ="/supermarket/img/1.jpg"></div>
+    <div style = "text-align:center"><img alt="test" src ="/supermarket/img/2.jpg"></div>
+    <div style = "text-align:center"><img alt="test" src ="/supermarket/img/3.jpg"></div>
+  </div>
+</div>
+
+</body>
+
+<script src="/supermarket/layui/layui.js"></script>
+<script>
+// layui.use('',funtion(){ ''里面放模块方法
+	
+layui.use('carousel', function(){
+  var carousel = layui.carousel;
+  //建造实例
+  carousel.render({
+    elem: '#test1'  //id
+    ,width: '1500px' //设置容器宽度
+    ,height: '800px' 
+    ,full:  false
+    ,arrow: 'always' //始终显示箭头
+    ,anim: 'fade' //切换动画方式
+    ,autoplay:true
+    ,interval:3000
+    ,trigger:'click'
+  });
+});
+
+
+</script>
+
+</html>

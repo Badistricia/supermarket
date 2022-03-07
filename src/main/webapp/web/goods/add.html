@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<link rel="stylesheet" href="/supermarket/layui/css/layui.css" media="all">
+<title>Insert title here</title>
+</head>
+<body>
+添加商品信息
+
+<fieldset class ="layui-elem-field">
+	
+	<div class="layui=field-box">
+	<form class="layui-form" >
+  <div class="layui-form-item">
+    <label class="layui-form-label">编码</label>
+    <div class="layui-input-inline">
+      <input type="text" name="id" required  lay-verify="required" placeholder="请输入商品编码" autocomplete="off" class="layui-input">
+    </div>
+  </div>
+  <div class="layui-form-item">
+    <label class="layui-form-label">名称</label>
+    <div class="layui-input-inline">
+      <input type="text" name="name" required  lay-verify="required" placeholder="请输入商品名字" autocomplete="off" class="layui-input">
+    </div>
+  </div>
+  <div class="layui-form-item">
+    <label class="layui-form-label">种类</label>
+    <div class="layui-input-inline">
+      <input type="text" name="kind" required lay-verify="required" placeholder="请输入商品种类" autocomplete="off" class="layui-input">
+    </div>
+    </div>
+    <div class="layui-form-item">
+    <label class="layui-form-label">数量</label>
+    <div class="layui-input-inline">
+      <input type="text" name="number" required lay-verify="required" placeholder="请输入数量" autocomplete="off" class="layui-input">
+    </div>
+    <div class="layui-form-item">
+    <label class="layui-form-label">价格</label>
+    <div class="layui-input-inline">
+      <input type="text" name="price" required lay-verify="required" placeholder="请输入价格" autocomplete="off" class="layui-input">
+    </div>
+    <div class="layui-form-mid layui-word-aux">辅助文字</div>
+  	<div>
+  	</div>
+  <div class="layui-form-item">
+    <div class="layui-input-block">
+      <input type = "button" value = "确定" lay-submit lay-filter="reg" class="layui-btn" >
+      <input type="reset" class="layui-btn layui-btn-primary" value ="重置"></button>
+    </div>
+  </div>
+</form>
+	
+		</div>
+</fieldset>
+</body>
+ <script src="/supermarket/layui/layui.js"></script>
+ <script>
+ 
+ 
+ function closeThis()  //自动关闭
+ {
+	 var index = parent.layer.getFrameIndex(window.name); //先得到当前iframe层的索引
+	 parent.layer.close(index); //再执行关闭 
+ }
+ 
+ 
+   var form = layui.form;
+   var $ = layui.jquery;
+   var layer = layui.layer;
+   //监听提交
+   form.on('submit(reg)', function(data){
+     var field = data.field;
+     console.log(field);
+     $.ajax({
+ 		url:"/supermarket/goods/insert",
+ 		type:"post",
+ 		data:field,
+ 		dataType:"json",
+// 		请求成功返回之后执行的方法
+ 		success:function(data){
+ 			console.log(data)
+ 			if(data.code==1){
+ 				layer.msg("success",closeThis)
+ 				
+ 			}else if(data.code==9){
+ 				
+ 				layer.msg("failed")}
+ 				
+ 		}
+ 	});
+   });
+ </script>
+</body>
+</html>

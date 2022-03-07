@@ -1,0 +1,42 @@
+<!DOCTYPE html> 
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>被二刺猿气晕</title>
+		<style type ="text/css">
+		/*样式类选择器{属性名1：属性值1；属性名2：属性值2}*/
+		.c1{color:red;font-size : 30px}  //定义c1
+		</style>
+		<script type="text/javascript">
+		
+		var a1 = 1;//数值	
+		var a2 = "abc"//'abc';//字符串
+		var a3 = [];//数组
+		var a4 = {};//对象
+		function f1(){ //方法/函数
+		alert(123)
+//		console.log('abc')
+		}
+		</script>
+		<script type ="text/javascript" src="/hotel210607/js/jquery-3.3.1.min.js"></script>
+		
+	</head>
+	<body >
+		giegie吃棒棒糖系统
+		<form class="c1">
+		耿小鬼编号<input type ="text" class = 't1' value ="123">
+		耿小鬼密码<input type = "password">
+				 <input type = "button" value = "确定" onclick="f2()">
+				 
+		</form>
+		<script type="text/javascript">
+		function f2(){//$(AAA).BBB.(CCC);//寻找网页里面的特定标签，这里是找的编号标签
+			var val=$('input[type = text]').val();
+//			var val=$(".t1").val();
+			alert(val);
+		}
+		
+		</script>
+	</body>
+	
+</html>

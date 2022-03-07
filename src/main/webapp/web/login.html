@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html>
+<head>
+<link rel="stylesheet" href="/supermarket/layui/css/layui.css" media="all">
+<meta charset="UTF-8">
+<title>登录</title>
+</head>
+<body>
+<fieldset class ="layui-elem-field">
+	<lengend>	登录  	</lengend>
+	<div class="layui=field-box">
+	<form class="layui-form" >
+  <div class="layui-form-item">
+    <label class="layui-form-label">账号</label>
+    <div class="layui-input-block">
+      <input type="text" name="id" required  lay-verify="required" placeholder="请输入账号" autocomplete="off" class="layui-input">
+    </div>
+  </div>
+ 
+    <label class="layui-form-label">密码框</label>
+    
+      <input type="password" name="pass" required lay-verify="required" placeholder="请输入密码" autocomplete="off" class="input">
+   
+   
+  	
+  
+      <input type = "button" value = "确定" lay-submit lay-filter="login" class="layui-btn" >
+      <input type="reset" class="layui-btn layui-btn-primary"value ="重置"></button>
+      <input type="button" class="layui-btn" onclick ="goReg()"value ="注册" ></button>
+    
+</form>
+	
+	</div>
+</fieldset>
+</body>
+<script src="/supermarket/layui/layui.js"></script>
+<script>
+
+function goReg(){
+	location.href="/supermarket/web/demo.html";
+}
+
+
+
+</script>
+<script>
+var form = layui.form;
+var $ = layui.jquery;
+var layer = layui.layer;
+//监听提交
+form.on('submit(login)', function(data){
+  var field = data.field;
+  console.log(field);
+  $.ajax({
+		url:"/supermarket/admin/login",
+		type:"post",
+		data:field,
+		dataType:"json",
+//		请求成功返回之后执行的方法
+		success:function(data){
+			console.log(data)
+		if(data.code==1){
+				layer.msg("success",function(){
+				location.href="/supermarket/web/main.html"
+				});
+				
+			}else if(data.code==9){
+				layer.msg("failed,the account's not exist")
+			}		
+			else {
+			layer.msg("failed,the password's not conrest")
+			}
+		}
+	});
+});
+
+</script>
+
+</html>

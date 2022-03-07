@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<style>
+	h1{
+		align-items: center;
+		font-size: 20px;
+	}
+	div{
+    width: 100px;
+    height: 100px;
+    position: absolute;
+    left: 20%;
+    top: 20%;
+    margin: -50px 0 0 -50px;
+}
+</style>
+</head>
+
+ <script src="/supermarket/js/echarts.min.js"></script>
+ <script src="/supermarket/js/jquery-3.3.1.min.js"></script>
+<body>
+<h1>商品价格柱状图</h1>
+<div id="main" style="width: 800px;height:500px;"></div>
+
+<script type="text/javascript">
+        // 基于准备好的dom，初始化echarts实例
+        var myChart = echarts.init(document.getElementById('main'));
+
+        $.ajax({
+        	url:"/supermarket/goods/selectList",
+     		type:"post",
+     		data:{},
+     		dataType:"json",
+     		success:function(data){
+     			console.log(data)
+     			
+     			var list = data.data;
+     			var admin = new Array();
+     			var count = new Array();
+     			$.each(list,function(){
+     				admin.push(this.name);
+     				count.push(this.price);
+     		
+        })
+        var option = {
+            	    xAxis: {
+            	        type: 'category',
+            	        data: admin
+            	    },
+            	    yAxis: {
+            	        type: 'value'
+            	    },
+            	    series: [{
+            	        data: count,
+            	        type: 'bar',
+            	        smooth: true
+            	    }]
+            	};
+
+            // 使用刚指定的配置项和数据显示图表。
+            myChart.setOption(option);
+     		}
+        });
+        // 指定图表的配置项和数据
+       
+    </script>
+
+</body>
+</html>

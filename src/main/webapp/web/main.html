@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html>
+<head>
+<link rel="stylesheet" href="/supermarket/layui/css/layui.css" media="all">
+<meta charset="UTF-8">
+<title>JG不要超商管理系统</title>
+</head>
+<body>
+<div class="layui-layout layui-layout-admin">
+  <div class="layui-header layui-bg-blue">
+    <div class="layui-logo layui-hide-xs layui-bg-blue">超市商品管理系统</div>
+    <!-- 头部区域（可配合layui 已有的水平导航） -->
+    <ul class="layui-nav layui-layout-left layui-bg-blue">
+      <!-- 移动端显示 -->
+      <li class="layui-nav-item layui-show-xs-inline-block layui-hide-sm" lay-header-event="menuLeft">
+        <i class="layui-icon layui-icon-spread-left"></i>
+      </li>
+      
+      
+      <li class="layui-nav-item">
+<!-- //二级菜单项 -->
+        
+        <li class="layui-nav-item layui-hide-xs"><a href="https://www.jd.com/">京东</a></li>
+      	<li class="layui-nav-item layui-hide-xs"><a href="https://www.taobao.com/">淘宝</a></li>
+      	<li class="layui-nav-item layui-hide-xs"><a href="https://youhui.pinduoduo.com/">拼多多</a></li>
+      </li>
+    </ul>
+    <ul class="layui-nav layui-layout-right layui-bg-blue">
+      <li class="layui-nav-item layui-hide layui-show-md-inline-block">
+        <a href="javascript:;">
+          <img src="//tva1.sinaimg.cn/crop.0.0.118.118.180/5db11ff4gw1e77d3nqrv8j203b03cweg.jpg" class="layui-nav-img">
+          tester
+        </a>
+        <dl class="layui-nav-child">
+          <dd><a href="">个人中心</a></dd>
+          <dd><a href="">设置</a></dd>
+          <dd><a href="javascript:openUrl('/supermarket/web/admin/loginin.html');">退出</a></dd>
+        </dl>
+      </li>
+      <li class="layui-nav-item" lay-header-event="menuRight" lay-unselect>
+        <a href="javascript:;">
+          <i class="layui-icon layui-icon-more-vertical"></i>
+        </a>
+      </li>
+    </ul>
+  </div>
+  
+  <div class="layui-side layui-bg-blue">
+    <div class="layui-side-scroll">
+      <!-- 左侧导航区域（可配合layui已有的垂直导航） -->
+      <ul class="layui-nav layui-nav-tree layui-bg-blue" lay-filter="test">
+        <li class="layui-nav-item layui-nav-itemed layui-bg-white">
+          <a class="" href="javascript:;">首页</a>
+          <dl class="layui-nav-child layui-bg-white">
+            <dd><a href="javascript:openUrl('/supermarket/web/admin/list.html');">员工信息维护</a></dd>
+            <!-- 让标签跳转在本页面一个框框内跳转的的方法 -->
+            <dd><a href="javascript:openUrl('/supermarket/web/date/list.html');">货物信息维护</a></dd>
+            <dd><a href="javascript:openUrl('/supermarket/web/goods/list.html');">商品信息维护</a></dd>
+            
+          </dl>
+        </li>
+        <li class="layui-nav-item">
+          <a href="javascript:;">商品表格区</a>
+          <dl class="layui-nav-child">
+            <dd><a href="javascript:openUrl('/supermarket/web/goods/chart.html');">商品价格显示</a></dd>
+           <dd><a href="javascript:openUrl('/supermarket/web/goods/numberchart.html');">商品剩余显示</a></dd>
+            
+          </dl>
+        </li>
+        
+      </ul>
+    </div>
+  </div>
+  
+  <div class="layui-body">
+    <!-- 内容主体区域 -->
+    <iframe name="frameA" width="98%" height="98%" src ="/supermarket/web/layui.html"> </iframe>
+    <div style="padding: 15px;">内容主体区域。记得修改 layui.css 和 js 的路径</div>
+  </div>
+  
+  <div class="layui-footer">
+    <!-- 底部固定区域 -->
+    管理员辛苦啦~
+  </div>
+</div>
+<script src="/supermarket/layui/layui.js"></script>
+<script>
+//JS 
+function openUrl(url){
+	window.open(url,"frameA");
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+var element = layui.element;
+element.render();
+
+layui.use(['element', 'layer', 'util'], function(){
+  var element = layui.element
+  ,layer = layui.layer
+  ,util = layui.util
+  ,$ = layui.$;
+  
+ 
+});
+</script>
+</body>
+</html>
